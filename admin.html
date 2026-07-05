@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Admin Dashboard - Rumah Management System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.css">
+    <link rel="stylesheet" href="assets/css/admin-style.css">
+</head>
+<body>
+    <div class="admin-wrapper">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="admin-logo">
+                    <i class="fas fa-crown"></i>
+                    <span>RUMAH Admin</span>
+                </div>
+                <button class="sidebar-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <h3 class="nav-section-title">MENU UTAMA</h3>
+                    
+                    <a href="#dashboard" class="nav-item active" data-page="dashboard">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    
+                    <a href="#users" class="nav-item" data-page="users">
+                        <i class="fas fa-users"></i>
+                        <span>Manajemen User</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                    <div class="submenu" id="submenu-users">
+                        <a href="#users-developer" class="submenu-item" data-page="users-developer">
+                            <i class="fas fa-building"></i>Developer
+                        </a>
+                        <a href="#users-marketing" class="submenu-item" data-page="users-marketing">
+                            <i class="fas fa-megaphone"></i>Marketing
+                        </a>
+                        <a href="#users-notaris" class="submenu-item" data-page="users-notaris">
+                            <i class="fas fa-file-contract"></i>Notaris
+                        </a>
+                        <a href="#users-asosiasi" class="submenu-item" data-page="users-asosiasi">
+                            <i class="fas fa-handshake"></i>Asosiasi
+                        </a>
+                    </div>
+                </div>
+
+                <div class="nav-section">
+                    <h3 class="nav-section-title">VERIFIKASI & APPROVAL</h3>
+                    
+                    <a href="#approval-listing" class="nav-item" data-page="approval-listing">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Listing Properti</span>
+                        <span class="badge badge-warning">12</span>
+                    </a>
+                    
+                    <a href="#approval-developer" class="nav-item" data-page="approval-developer">
+                        <i class="fas fa-user-check"></i>
+                        <span>Developer Baru</span>
+                        <span class="badge badge-info">5</span>
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <h3 class="nav-section-title">TRANSAKSI & KEUANGAN</h3>
+                    
+                    <a href="#transaksi-booking" class="nav-item" data-page="transaksi-booking">
+                        <i class="fas fa-bookmark"></i>
+                        <span>Booking & Transaksi</span>
+                    </a>
+                    
+                    <a href="#keuangan-komisi" class="nav-item" data-page="keuangan-komisi">
+                        <i class="fas fa-percent"></i>
+                        <span>Komisi Referral</span>
+                    </a>
+                    
+                    <a href="#keuangan-withdraw" class="nav-item" data-page="keuangan-withdraw">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <span>Approval Withdraw</span>
+                        <span class="badge badge-success">8</span>
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <h3 class="nav-section-title">KONTEN & DATA</h3>
+                    
+                    <a href="#konten-banner" class="nav-item" data-page="konten-banner">
+                        <i class="fas fa-images"></i>
+                        <span>Kelola Banner</span>
+                    </a>
+                    
+                    <a href="#konten-artikel" class="nav-item" data-page="konten-artikel">
+                        <i class="fas fa-newspaper"></i>
+                        <span>Kelola Artikel</span>
+                    </a>
+                    
+                    <a href="#konten-wilayah" class="nav-item" data-page="konten-wilayah">
+                        <i class="fas fa-map-location-dot"></i>
+                        <span>Master Wilayah</span>
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <h3 class="nav-section-title">SISTEM</h3>
+                    
+                    <a href="#pengaturan" class="nav-item" data-page="pengaturan">
+                        <i class="fas fa-sliders-h"></i>
+                        <span>Pengaturan Sistem</span>
+                    </a>
+                    
+                    <a href="#laporan" class="nav-item" data-page="laporan">
+                        <i class="fas fa-file-pdf"></i>
+                        <span>Laporan</span>
+                    </a>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <img src="https://via.placeholder.com/40x40" alt="Admin">
+                    <div class="user-info">
+                        <p>Admin Super</p>
+                        <small>Super Admin</small>
+                    </div>
+                </div>
+                <button class="btn-logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <div class="topbar">
+                <div class="topbar-left">
+                    <button class="btn-menu-toggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="breadcrumb">
+                        <a href="#dashboard">Dashboard</a>
+                        <span id="breadcrumb-current"></span>
+                    </div>
+                </div>
+
+                <div class="topbar-right">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Cari...">
+                    </div>
+
+                    <div class="notification-bell">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                        <div class="notification-dropdown">
+                            <div class="notification-header">Notifikasi</div>
+                            <div class="notification-item">
+                                <i class="fas fa-file-upload"></i>
+                                <div>
+                                    <p>Listing properti baru menunggu approval</p>
+                                    <small>5 menit yang lalu</small>
+                                </div>
+                            </div>
+                            <div class="notification-item">
+                                <i class="fas fa-user-plus"></i>
+                                <div>
+                                    <p>Developer baru mendaftar</p>
+                                    <small>1 jam yang lalu</small>
+                                </div>
+                            </div>
+                            <div class="notification-item">
+                                <i class="fas fa-money-bill"></i>
+                                <div>
+                                    <p>Ada permintaan withdraw</p>
+                                    <small>2 jam yang lalu</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="user-menu">
+                        <img src="https://via.placeholder.com/35x35" alt="User">
+                        <div class="dropdown-menu">
+                            <a href="#profil">
+                                <i class="fas fa-user"></i> Profil
+                            </a>
+                            <a href="#pengaturan-akun">
+                                <i class="fas fa-cog"></i> Pengaturan
+                            </a>
+                            <hr>
+                            <a href="#logout" class="text-danger">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page Content -->
+            <div class="page-content">
+                <!-- Dashboard Page -->
+                <div id="page-dashboard" class="page-section active">
+                    <div class="page-header">
+                        <h1>Dashboard</h1>
+                        <p>Ringkasan data sistem real-time</p>
+                    </div>
+
+                    <!-- Statistics Cards -->
+                    <div class="stats-grid">
+                        <div class="stat-card stat-primary">
+                            <div class="stat-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3>Total User</h3>
+                                <p class="stat-value">4,892</p>
+                                <small class="stat-change positive">+12% bulan ini</small>
+                            </div>
+                        </div>
+
+                        <div class="stat-card stat-success">
+                            <div class="stat-icon">
+                                <i class="fas fa-home"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3>Total Properti</h3>
+                                <p class="stat-value">1,245</p>
+                                <small class="stat-change positive">+8% bulan ini</small>
+                            </div>
+                        </div>
+
+                        <div class="stat-card stat-warning">
+                            <div class="stat-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3>Pending Approval</h3>
+                                <p class="stat-value">17</p>
+                                <small class="stat-change negative">Perlu ditindaklanjuti</small>
+                            </div>
+                        </div>
+
+                        <div class="stat-card stat-info">
+                            <div class="stat-icon">
+                                <i class="fas fa-credit-card"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3>Transaksi Bulan Ini</h3>
+                                <p class="stat-value">Rp 24.5M</p>
+                                <small class="stat-change positive">+5% bulan ini</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Charts & Tables -->
+                    <div class="dashboard-grid">
+                        <div class="chart-card">
+                            <div class="card-header">
+                                <h3>Penjualan Properti (6 Bulan)</h3>
+                                <select class="filter-select">
+                                    <option>6 Bulan</option>
+                                    <option>1 Tahun</option>
+                                    <option>Semua</option>
+                                </select>
+                            </div>
+                            <canvas id="salesChart"></canvas>
+                        </div>
+
+                        <div class="chart-card">
+                            <div class="card-header">
+                                <h3>Kategori Properti</h3>
+                            </div>
+                            <canvas id="categoryChart"></canvas>
+                        </div>
+
+                        <div class="chart-card full-width">
+                            <div class="card-header">
+                                <h3>Transaksi Terbaru</h3>
+                            </div>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>ID Transaksi</th>
+                                        <th>Pembeli</th>
+                                        <th>Properti</th>
+                                        <th>Jumlah</th>
+                                        <th>Tanggal</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>#TRX001</td>
+                                        <td>John Doe</td>
+                                        <td>Rumah Modern Jakarta</td>
+                                        <td>Rp 750.000.000</td>
+                                        <td>05-07-2024</td>
+                                        <td><span class="badge badge-success">Selesai</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>#TRX002</td>
+                                        <td>Jane Smith</td>
+                                        <td>Kavling Tanah Strategis</td>
+                                        <td>Rp 350.000.000</td>
+                                        <td>04-07-2024</td>
+                                        <td><span class="badge badge-success">Selesai</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>#TRX003</td>
+                                        <td>Ahmad Rahman</td>
+                                        <td>Komersial Prime Location</td>
+                                        <td>Rp 1.200.000.000</td>
+                                        <td>03-07-2024</td>
+                                        <td><span class="badge badge-info">Proses</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Users Management Pages -->
+                <div id="page-users-developer" class="page-section">
+                    <div class="page-header">
+                        <h1>Manajemen Developer</h1>
+                        <button class="btn btn-primary" onclick="openModal('addUserModal')">
+                            <i class="fas fa-plus"></i> Tambah Developer
+                        </button>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="filters">
+                                <input type="text" class="form-control" placeholder="Cari nama/email...">
+                                <select class="form-control">
+                                    <option>Semua Status</option>
+                                    <option>Aktif</option>
+                                    <option>Nonaktif</option>
+                                    <option>Suspend</option>
+                                </select>
+                            </div>
+                        </div>
+                        <table class="table data-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nama Developer</th>
+                                    <th>Email</th>
+                                    <th>Kontak</th>
+                                    <th>Properti</th>
+                                    <th>Bergabung</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>DEV001</td>
+                                    <td>PT Graha Indah</td>
+                                    <td>info@grahaindah.com</td>
+                                    <td>+62 812-3456-7890</td>
+                                    <td>45</td>
+                                    <td>01-01-2023</td>
+                                    <td><span class="badge badge-success">Aktif</span></td>
+                                    <td>
+                                        <button class="btn-action" onclick="editUser('DEV001')"><i class="fas fa-edit"></i></button>
+                                        <button class="btn-action text-danger" onclick="suspendUser('DEV001')"><i class="fas fa-ban"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>DEV002</td>
+                                    <td>Propertindo Jaya</td>
+                                    <td>contact@propertindo.com</td>
+                                    <td>+62 822-1234-5678</td>
+                                    <td>32</td>
+                                    <td>15-03-2023</td>
+                                    <td><span class="badge badge-success">Aktif</span></td>
+                                    <td>
+                                        <button class="btn-action" onclick="editUser('DEV002')"><i class="fas fa-edit"></i></button>
+                                        <button class="btn-action text-danger" onclick="suspendUser('DEV002')"><i class="fas fa-ban"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="page-users-marketing" class="page-section">
+                    <div class="page-header">
+                        <h1>Manajemen Marketing</h1>
+                        <button class="btn btn-primary" onclick="openModal('addUserModal')">
+                            <i class="fas fa-plus"></i> Tambah Marketing
+                        </button>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="filters">
+                                <input type="text" class="form-control" placeholder="Cari nama/email...">
+                                <select class="form-control">
+                                    <option>Semua Status</option>
+                                    <option>Aktif</option>
+                                    <option>Nonaktif</option>
+                                </select>
+                            </div>
+                        </div>
+                        <table class="table data-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nama Marketing</th>
+                                    <th>Email</th>
+                                    <th>Kontak</th>
+                                    <th>Komisi Bulan Ini</th>
+                                    <th>Bergabung</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>MKT001</td>
+                                    <td>Budi Santoso</td>
+                                    <td>budi@rumah.id</td>
+                                    <td>+62 812-9876-5432</td>
+                                    <td>Rp 5.200.000</td>
+                                    <td>10-05-2023</td>
+                                    <td><span class="badge badge-success">Aktif</span></td>
+                                    <td>
+                                        <button class="btn-action" onclick="editUser('MKT001')"><i class="fas fa-edit"></i></button>
+                                        <button class="btn-action text-danger" onclick="deleteUser('MKT001')"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="page-users-notaris" class="page-section">
+                    <div class="page-header">
+                        <h1>Manajemen Notaris</h1>
+                        <button class="btn btn-primary" onclick="openModal('addUserModal')">
+                            <i class="fas fa-plus"></i> Tambah Notaris
+                        </button>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="filters">
+                                <input type="text" class="form-control" placeholder="Cari nama/email...">
+                                <select class="form-control">
+                                    <option>Semua Status</option>
+                                    <option>Aktif</option>
+                                    <option>Nonaktif</option>
+                                </select>
+                            </div>
+                        </div>
+                        <table class="table data-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nama Notaris</th>
+                                    <th>SN Notaris</th>
+                                    <th>Email</th>
+                                    <th>Lokasi</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>NOT001</td>
+                                    <td>Notaris Ahmad Fauzi</td>
+                                    <td>SN-001-2023</td>
+                                    <td>ahmad@notaris.id</td>
+                                    <td>Jakarta Selatan</td>
+                                    <td><span class="badge badge-success">Aktif</span></td>
+                                    <td>
+                                        <button class="btn-action" onclick="editUser('NOT001')"><i class="fas fa-edit"></i></button>
+                                        <button class="btn-action text-danger" onclick="deleteUser('NOT001')"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="page-users-asosiasi" class="page-section">
+                    <div class="page-header">
+                        <h1>Manajemen Asosiasi</h1>
+                        <button class="btn btn-primary" onclick="openModal('addUserModal')">
+                            <i class="fas fa-plus"></i> Tambah Asosiasi
+                        </button>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="filters">
+                                <input type="text" class="form-control" placeholder="Cari nama...">
+                            </div>
+                        </div>
+                        <table class="table data-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nama Asosiasi</th>
+                                    <th>Jenis</th>
+                                    <th>Anggota</th>
+                                    <th>Email</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>ASO001</td>
+                                    <td>Asosiasi Developer Indonesia</td>
+                                    <td>Developer</td>
+                                    <td>125</td>
+                                    <td>info@adindo.id</td>
+                                    <td><span class="badge badge-success">Aktif</span></td>
+                                    <td>
+                                        <button class="btn-action" onclick="editUser('ASO001')"><i class="fas fa-edit"></i></button>
+                                        <button class="btn-action text-danger" onclick="deleteUser('ASO001')"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Approval System Pages -->
+                <div id="page-approval-listing" class="page-section">
+                    <div class="page-header">
+                        <h1>Verifikasi Listing Properti</h1>
+                        <select class="filter-select">
+                            <option>Semua Status</option>
+                            <option>Menunggu Verifikasi</option>
+                            <option>Ditolak</option>
+                        </select>
+                    </div>
+
+                    <div class="approval-grid">
+                        <div class="approval-card">
+                            <div class="approval-header">
+                                <h3>Rumah Modern Bekasi</h3>
+                                <span class="badge badge-warning">Menunggu</span>
+                            </div>
+                            <div class="approval-body">
+                                <img src="https://via.placeholder.com/300x200" alt="Property">
+                                <div class="approval-details">
+                                    <p><strong>Developer:</strong> PT Graha Indah</p>
+                                    <p><strong>Harga:</strong> Rp 650.000.000</p>
+                                    <p><strong>Luas:</strong> 100 m²</p>
+                                    <p><strong>Lokasi:</strong> Bekasi, Jawa Barat</p>
+                                    <p><strong>Diajukan:</strong> 04-07-2024</p>
+                                </div>
+                            </div>
+                            <div class="approval-actions">
+                                <button class="btn btn-success" onclick="approveProperty('PROP001')">
+                                    <i class="fas fa-check"></i> Setujui
+                                </button>
+                                <button class="btn btn-danger" onclick="rejectProperty('PROP001')">
+                                    <i class="fas fa-times"></i> Tolak
+                                </button>
+                                <button class="btn btn-info" onclick="viewDetails('PROP001')">
+                                    <i class="fas fa-eye"></i> Detail
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="approval-card">
+                            <div class="approval-header">
+                                <h3>Kavling Tanah Depok</h3>
+                                <span class="badge badge-warning">Menunggu</span>
+                            </div>
+                            <div class="approval-body">
+                                <img src="https://via.placeholder.com/300x200" alt="Property">
+                                <div class="approval-details">
+                                    <p><strong>Developer:</strong> Propertindo Jaya</p>
+                                    <p><strong>Harga:</strong> Rp 450.000.000</p>
+                                    <p><strong>Luas:</strong> 200 m²</p>
+                                    <p><strong>Lokasi:</strong> Depok, Jawa Barat</p>
+                                    <p><strong>Diajukan:</strong> 05-07-2024</p>
+                                </div>
+                            </div>
+                            <div class="approval-actions">
+                                <button class="btn btn-success" onclick="approveProperty('PROP002')">
+                                    <i class="fas fa-check"></i> Setujui
+                                </button>
+                                <button class="btn btn-danger" onclick="rejectProperty('PROP002')">
+                                    <i class="fas fa-times"></i> Tolak
+                                </button>
+                                <button class="btn btn-info" onclick="viewDetails('PROP002')">
+                                    <i class="fas fa-eye"></i> Detail
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="page-approval-developer" class="page-section">
+                    <div class="page-header">
+                        <h1>Verifikasi Developer Baru</h1>
+                    </div>
+
+                    <div class="approval-grid">
+                        <div class="approval-card">
+                            <div class="approval-header">
+                                <h3>PT Bangun Berkembang</h3>
+                                <span class="badge badge-warning">Menunggu</span>
+                            </div>
+                            <div class="approval-body">
+                                <div class="approval-details">
+                                    <p><strong>Email:</strong> contact@bangunberkembang.com</p>
+                                    <p><strong>Telepon:</strong> +62 812-3456-7890</p>
+                                    <p><strong>Lokasi:</strong> Jakarta Timur</p>
+                                    <p><strong>NPWP:</strong> 12.345.678.9-012.000</p>
+                                    <p><strong>Diajukan:</strong> 03-07-2024</p>
+                                </div>
+                            </div>
+                            <div class="approval-actions">
+                                <button class="btn btn-success" onclick="approveDeveloper('DEV003')">
+                                    <i class="fas fa-check"></i> Setujui
+                                </button>
+                                <button class="btn btn-danger" onclick="rejectDeveloper('DEV003')">
+                                    <i class="fas fa-times"></i> Tolak
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Transaction Pages -->
+                <div id="page-transaksi-booking" class="page-section">
+                    <div class="page-header">
+                        <h1>Monitoring Booking & Transaksi</h1>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="filters">
+                                <input type="text" class="form-control" placeholder="Cari ID transaksi...">
+                                <select class="form-control">
+                                    <option>Semua Status</option>
+                                    <option>Menunggu Pembayaran</option>
+                                    <option>Sudah Membayar</option>
+                                    <option>Proses</option>
+                                    <option>Selesai</option>
+                                    <option>Dibatalkan</option>
+                                </select>
+                            </div>
+                        </div>
+                        <table class="table data-table">
+                            <thead>
+                                <tr>
+                                    <th>ID Transaksi</th>
+                                    <th>Pembeli</th>
+                                    <th>Properti</th>
+                                    <th>Harga</th>
+                                    <th>Tanggal</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#TRX001</td>
+                                    <td>John Doe</td>
+                                    <td>Rumah Modern Jakarta</td>
+                                    <td>Rp 750.000.000</td>
+                                    <td>05-07-2024</td>
+                                    <td><span class="badge badge-success">Selesai</span></td>
+                                    <td><button class="btn-action" onclick="viewTransaction('TRX001')"><i class="fas fa-eye"></i></button></td>
+                                </tr>
+                                <tr>
+                                    <td>#TRX002</td>
+                                    <td>Jane Smith</td>
+                                    <td>Kavling Tanah Strategis</td>
+                                    <td>Rp 350.000.000</td>
+                                    <td>04-07-2024</td>
+                                    <td><span class="badge badge-info">Proses</span></td>
+                                    <td><button class="btn-action" onclick="viewTransaction('TRX002')"><i class="fas fa-eye"></i></button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Finance Pages -->
+                <div id="page-keuangan-komisi" class="page-section">
+                    <div class="page-header">
+                        <h1>Pengaturan Komisi Referral</h1>
+                        <button class="btn btn-primary" onclick="openModal('addCommissionModal')">
+                            <i class="fas fa-plus"></i> Tambah Komisi
+                        </button>
+                    </div>
+
+                    <div class="commission-grid">
+                        <div class="commission-card">
+                            <h3>Komisi Developer</h3>
+                            <div class="commission-form">
+                                <label>Persentase Komisi (%)</label>
+                                <input type="number" value="3" step="0.1" class="form-control">
+                                <label style="margin-top: 15px;">Jenis Properti</label>
+                                <select class="form-control">
+                                    <option>Semua Tipe</option>
+                                    <option>Rumah Subsidi</option>
+                                    <option>Komersial</option>
+                                </select>
+                                <button class="btn btn-primary" style="margin-top: 15px; width: 100%;">
+                                    Simpan Pengaturan
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="commission-card">
+                            <h3>Komisi Marketing</h3>
+                            <div class="commission-form">
+                                <label>Persentase Komisi (%)</label>
+                                <input type="number" value="2.5" step="0.1" class="form-control">
+                                <label style="margin-top: 15px;">Bonus Performa</label>
+                                <select class="form-control">
+                                    <option>Tidak Ada</option>
+                                    <option>Aktif</option>
+                                </select>
+                                <button class="btn btn-primary" style="margin-top: 15px; width: 100%;">
+                                    Simpan Pengaturan
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="commission-card full-width">
+                            <h3>Riwayat Perhitungan Komisi</h3>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Periode</th>
+                                        <th>Tipe User</th>
+                                        <th>Total Penjualan</th>
+                                        <th>Komisi %</th>
+                                        <th>Total Komisi</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Juli 2024</td>
+                                        <td>Developer</td>
+                                        <td>Rp 5.200.000.000</td>
+                                        <td>3%</td>
+                                        <td>Rp 156.000.000</td>
+                                        <td><span class="badge badge-success">Terhitung</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="page-keuangan-withdraw" class="page-section">
+                    <div class="page-header">
+                        <h1>Approval Withdraw Marketing</h1>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="filters">
+                                <select class="form-control">
+                                    <option>Semua Status</option>
+                                    <option>Menunggu Approval</option>
+                                    <option>Disetujui</option>
+                                    <option>Ditolak</option>
+                                </select>
+                            </div>
+                        </div>
+                        <table class="table data-table">
+                            <thead>
+                                <tr>
+                                    <th>ID Withdraw</th>
+                                    <th>Marketing</th>
+                                    <th>Jumlah</th>
+                                    <th>Rekening</th>
+                                    <th>Tanggal Pengajuan</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>WD001</td>
+                                    <td>Budi Santoso</td>
+                                    <td>Rp 5.200.000</td>
+                                    <td>1234567890 (BCA)</td>
+                                    <td>05-07-2024</td>
+                                    <td><span class="badge badge-warning">Menunggu</span></td>
+                                    <td>
+                                        <button class="btn btn-success btn-sm" onclick="approveWithdraw('WD001')">Setujui</button>
+                                        <button class="btn btn-danger btn-sm" onclick="rejectWithdraw('WD001')">Tolak</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Content Pages -->
+                <div id="page-konten-banner" class="page-section">
+                    <div class="page-header">
+                        <h1>Kelola Banner</h1>
+                        <button class="btn btn-primary" onclick="openModal('addBannerModal')">
+                            <i class="fas fa-plus"></i> Tambah Banner
+                        </button>
+                    </div>
+
+                    <div class="banner-grid">
+                        <div class="banner-card">
+                            <img src="https://via.placeholder.com/800x400" alt="Banner">
+                            <div class="banner-info">
+                                <h3>Banner Promosi Juli</h3>
+                                <p>Aktif: 01-07-2024 s/d 31-07-2024</p>
+                                <span class="badge badge-success">Aktif</span>
+                            </div>
+                            <div class="banner-actions">
+                                <button class="btn btn-info btn-sm"><i class="fas fa-edit"></i> Edit</button>
+                                <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Hapus</button>
+                            </div>
+                        </div>
+
+                        <div class="banner-card">
+                            <img src="https://via.placeholder.com/800x400" alt="Banner">
+                            <div class="banner-info">
+                                <h3>Banner Rumah Subsidi</h3>
+                                <p>Aktif: 01-06-2024 s/d 30-06-2024</p>
+                                <span class="badge badge-secondary">Nonaktif</span>
+                            </div>
+                            <div class="banner-actions">
+                                <button class="btn btn-info btn-sm"><i class="fas fa-edit"></i> Edit</button>
+                                <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Hapus</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="page-konten-artikel" class="page-section">
+                    <div class="page-header">
+                        <h1>Kelola Artikel</h1>
+                        <button class="btn btn-primary" onclick="openModal('addArticleModal')">
+                            <i class="fas fa-plus"></i> Tambah Artikel
+                        </button>
+                    </div>
+
+                    <div class="card">
+                        <table class="table data-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Judul</th>
+                                    <th>Kategori</th>
+                                    <th>Author</th>
+                                    <th>Tanggal</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>ART001</td>
+                                    <td>10 Tips Membeli Rumah</td>
+                                    <td>Tips</td>
+                                    <td>Admin</td>
+                                    <td>05-07-2024</td>
+                                    <td><span class="badge badge-success">Published</span></td>
+                                    <td>
+                                        <button class="btn btn-info btn-sm"><i class="fas fa-edit"></i></button>
+                                        <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="page-konten-wilayah" class="page-section">
+                    <div class="page-header">
+                        <h1>Master Data Wilayah</h1>
+                        <button class="btn btn-primary" onclick="openModal('addRegionModal')">
+                            <i class="fas fa-plus"></i> Tambah Wilayah
+                        </button>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="filters">
+                                <input type="text" class="form-control" placeholder="Cari wilayah...">
+                                <select class="form-control">
+                                    <option>Semua Tipe</option>
+                                    <option>Provinsi</option>
+                                    <option>Kabupaten/Kota</option>
+                                    <option>Kecamatan</option>
+                                </select>
+                            </div>
+                        </div>
+                        <table class="table data-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nama</th>
+                                    <th>Tipe</th>
+                                    <th>Induk</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>WL001</td>
+                                    <td>Jakarta</td>
+                                    <td>Provinsi</td>
+                                    <td>Indonesia</td>
+                                    <td><span class="badge badge-success">Aktif</span></td>
+                                    <td>
+                                        <button class="btn btn-info btn-sm"><i class="fas fa-edit"></i></button>
+                                        <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>WL002</td>
+                                    <td>Jakarta Pusat</td>
+                                    <td>Kota</td>
+                                    <td>Jakarta</td>
+                                    <td><span class="badge badge-success">Aktif</span></td>
+                                    <td>
+                                        <button class="btn btn-info btn-sm"><i class="fas fa-edit"></i></button>
+                                        <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div id="addUserModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Tambah User Baru</h2>
+                <button class="modal-close" onclick="closeModal('addUserModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label>Nama Lengkap</label>
+                        <input type="text" class="form-control" placeholder="Masukkan nama">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" class="form-control" placeholder="Masukkan email">
+                    </div>
+                    <div class="form-group">
+                        <label>Nomor Telepon</label>
+                        <input type="tel" class="form-control" placeholder="Masukkan nomor">
+                    </div>
+                    <div class="form-group">
+                        <label>Role</label>
+                        <select class="form-control">
+                            <option>Developer</option>
+                            <option>Marketing</option>
+                            <option>Notaris</option>
+                            <option>Asosiasi</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('addUserModal')">Batal</button>
+                <button class="btn btn-primary">Simpan</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <script src="assets/js/admin.js"></script>
+</body>
+</html>
