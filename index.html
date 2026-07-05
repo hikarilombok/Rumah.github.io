@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rumah - Cari Properti Impian Anda | Real Estate Indonesia</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=places"></script>
+</head>
+<body>
+    <!-- Navigation Header -->
+    <header class="navbar">
+        <div class="container">
+            <div class="navbar-brand">
+                <a href="#home" class="logo">
+                    <i class="fas fa-home"></i> RUMAH
+                </a>
+            </div>
+            <nav class="nav-menu">
+                <a href="#home" class="nav-link active">Beranda</a>
+                <a href="#properties" class="nav-link">Cari Properti</a>
+                <a href="#developer" class="nav-link">Developer</a>
+                <a href="#marketing" class="nav-link">Marketing</a>
+                <a href="#notaris" class="nav-link">Notaris</a>
+                <a href="#articles" class="nav-link">Artikel</a>
+            </nav>
+            <div class="nav-actions">
+                <button class="btn-login">Masuk</button>
+                <button class="btn-register">Daftar</button>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Temukan Properti Impian Anda</h1>
+            <p>Platform terpercaya untuk menjual, membeli, dan menyewa properti di Indonesia</p>
+            
+            <!-- Advanced Search Bar -->
+            <div class="search-container">
+                <form id="searchForm" class="search-form">
+                    <div class="search-group">
+                        <input type="text" id="searchLocation" placeholder="Cari lokasi..." class="search-input">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    
+                    <div class="search-group">
+                        <select id="searchType" class="search-input">
+                            <option value="">Tipe Properti</option>
+                            <option value="rumah-subsidi">Rumah Subsidi</option>
+                            <option value="komersial">Komersial</option>
+                            <option value="take-over">Take Over</option>
+                            <option value="tanah">Tanah</option>
+                            <option value="kavling">Kavling</option>
+                        </select>
+                    </div>
+
+                    <div class="search-group">
+                        <select id="searchCategory" class="search-input">
+                            <option value="">Kategori</option>
+                            <option value="subsidi">Subsidi</option>
+                            <option value="komersial">Komersial</option>
+                        </select>
+                    </div>
+
+                    <div class="search-group">
+                        <input type="number" id="searchPriceMin" placeholder="Harga Min" class="search-input">
+                    </div>
+
+                    <div class="search-group">
+                        <input type="number" id="searchPriceMax" placeholder="Harga Max" class="search-input">
+                    </div>
+
+                    <div class="search-group">
+                        <input type="number" id="searchLuas" placeholder="Luas (m²)" class="search-input">
+                    </div>
+
+                    <button type="submit" class="btn-search">
+                        <i class="fas fa-search"></i> Cari Properti
+                    </button>
+                </form>
+                <div class="advanced-filters">
+                    <button class="btn-filters">
+                        <i class="fas fa-sliders-h"></i> Filter Lanjutan
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="hero-background"></div>
+    </section>
+
+    <!-- Property Categories -->
+    <section class="categories" id="properties">
+        <div class="container">
+            <h2>Kategori Properti</h2>
+            <p class="section-subtitle">Jelajahi berbagai pilihan properti sesuai kebutuhan Anda</p>
+            
+            <div class="categories-grid">
+                <div class="category-card" data-type="rumah-subsidi">
+                    <div class="category-icon">
+                        <i class="fas fa-house-user"></i>
+                    </div>
+                    <h3>Rumah Subsidi</h3>
+                    <p>Rumah dengan harga terjangkau dan subsidi dari pemerintah</p>
+                    <span class="category-count">1,245 properti</span>
+                    <a href="#" class="btn-secondary">Lihat Semua</a>
+                </div>
+
+                <div class="category-card" data-type="komersial">
+                    <div class="category-icon">
+                        <i class="fas fa-store"></i>
+                    </div>
+                    <h3>Komersial</h3>
+                    <p>Ruang komersial untuk bisnis Anda dengan lokasi strategis</p>
+                    <span class="category-count">856 properti</span>
+                    <a href="#" class="btn-secondary">Lihat Semua</a>
+                </div>
+
+                <div class="category-card" data-type="take-over">
+                    <div class="category-icon">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <h3>Take Over</h3>
+                    <p>Properti yang sudah dibangun, siap huni dengan cicilan ringan</p>
+                    <span class="category-count">672 properti</span>
+                    <a href="#" class="btn-secondary">Lihat Semua</a>
+                </div>
+
+                <div class="category-card" data-type="tanah">
+                    <div class="category-icon">
+                        <i class="fas fa-mountain"></i>
+                    </div>
+                    <h3>Tanah</h3>
+                    <p>Lahan kosong di lokasi prime untuk investasi Anda</p>
+                    <span class="category-count">543 properti</span>
+                    <a href="#" class="btn-secondary">Lihat Semua</a>
+                </div>
+
+                <div class="category-card" data-type="kavling">
+                    <div class="category-icon">
+                        <i class="fas fa-cubes"></i>
+                    </div>
+                    <h3>Kavling</h3>
+                    <p>Kavling tanah terukur dengan semua fasilitas lengkap</p>
+                    <span class="category-count">489 properti</span>
+                    <a href="#" class="btn-secondary">Lihat Semua</a>
+                </div>
+
+                <div class="category-card" data-type="lainnya">
+                    <div class="category-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h3>Properti Lainnya</h3>
+                    <p>Apartemen, ruko, dan jenis properti lainnya</p>
+                    <span class="category-count">234 properti</span>
+                    <a href="#" class="btn-secondary">Lihat Semua</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Map Section -->
+    <section class="map-section">
+        <div class="container">
+            <h2>Properti di Sekitar Anda</h2>
+            <p class="section-subtitle">Jelajahi properti terbaru yang tersedia di lokasi Anda</p>
+        </div>
+        <div id="map" class="interactive-map"></div>
+        <div class="map-info">
+            <div class="info-content">
+                <h3 id="propertyTitle">Klik marker untuk melihat detail properti</h3>
+                <p id="propertyDesc">Gunakan peta interaktif untuk menemukan properti yang Anda cari</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- KPR Simulator Section -->
+    <section class="kpr-simulator" id="kpr">
+        <div class="container">
+            <div class="simulator-content">
+                <div class="simulator-form">
+                    <h2>Simulasi KPR (Kredit Pemilikan Rumah)</h2>
+                    <p>Hitung cicilan bulanan untuk properti impian Anda</p>
+
+                    <form id="kprForm" class="form-group">
+                        <div class="form-row">
+                            <div class="form-col">
+                                <label>Harga Properti (Rp)</label>
+                                <input type="number" id="propertyPrice" placeholder="500000000" min="0" step="1000000">
+                            </div>
+                            <div class="form-col">
+                                <label>DP (Uang Muka) %</label>
+                                <input type="number" id="dpPercentage" placeholder="20" min="0" max="100" step="1" value="20">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-col">
+                                <label>Tenor (Tahun)</label>
+                                <select id="tenor">
+                                    <option value="">Pilih Tenor</option>
+                                    <option value="5">5 Tahun</option>
+                                    <option value="10">10 Tahun</option>
+                                    <option value="15">15 Tahun</option>
+                                    <option value="20">20 Tahun</option>
+                                    <option value="25">25 Tahun</option>
+                                </select>
+                            </div>
+                            <div class="form-col">
+                                <label>Bunga Tahunan (%)</label>
+                                <input type="number" id="interestRate" placeholder="5.5" min="0" max="15" step="0.1" value="5.5">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-primary">Hitung Cicilan</button>
+                    </form>
+                </div>
+
+                <div class="simulator-result">
+                    <h3>Hasil Simulasi</h3>
+                    <div class="result-card">
+                        <div class="result-item">
+                            <span class="result-label">Harga Properti</span>
+                            <span class="result-value" id="resultPrice">Rp 0</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">Uang Muka (DP)</span>
+                            <span class="result-value" id="resultDP">Rp 0</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">Jumlah Pinjaman</span>
+                            <span class="result-value" id="resultLoan">Rp 0</span>
+                        </div>
+                        <div class="result-item highlight">
+                            <span class="result-label">Cicilan Bulanan</span>
+                            <span class="result-value" id="resultMonthly">Rp 0</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">Total Bunga</span>
+                            <span class="result-value" id="resultInterest">Rp 0</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">Total Pembayaran</span>
+                            <span class="result-value" id="resultTotal">Rp 0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Latest Articles Section -->
+    <section class="articles" id="articles">
+        <div class="container">
+            <h2>Artikel & Tips Properti</h2>
+            <p class="section-subtitle">Dapatkan informasi dan tips seputar dunia properti</p>
+
+            <div class="articles-grid">
+                <article class="article-card">
+                    <div class="article-image">
+                        <img src="https://via.placeholder.com/400x250?text=Tips+Membeli+Rumah" alt="Tips Membeli Rumah">
+                        <span class="article-category">Tips</span>
+                    </div>
+                    <div class="article-content">
+                        <h3>10 Tips Penting Sebelum Membeli Rumah</h3>
+                        <p>Panduan lengkap untuk memilih rumah yang tepat sesuai dengan budget dan kebutuhan Anda.</p>
+                        <div class="article-meta">
+                            <span class="article-date"><i class="fas fa-calendar"></i> 5 Mei 2024</span>
+                            <span class="article-author"><i class="fas fa-user"></i> Admin</span>
+                        </div>
+                        <a href="#" class="btn-link">Baca Selengkapnya →</a>
+                    </div>
+                </article>
+
+                <article class="article-card">
+                    <div class="article-image">
+                        <img src="https://via.placeholder.com/400x250?text=Investasi+Properti" alt="Investasi Properti">
+                        <span class="article-category">Investasi</span>
+                    </div>
+                    <div class="article-content">
+                        <h3>Strategi Investasi Properti untuk Pemula</h3>
+                        <p>Cara memulai investasi properti dengan modal terbatas dan strategi yang tepat.</p>
+                        <div class="article-meta">
+                            <span class="article-date"><i class="fas fa-calendar"></i> 3 Mei 2024</span>
+                            <span class="article-author"><i class="fas fa-user"></i> Admin</span>
+                        </div>
+                        <a href="#" class="btn-link">Baca Selengkapnya →</a>
+                    </div>
+                </article>
+
+                <article class="article-card">
+                    <div class="article-image">
+                        <img src="https://via.placeholder.com/400x250?text=Proses+KPR" alt="Proses KPR">
+                        <span class="article-category">Panduan</span>
+                    </div>
+                    <div class="article-content">
+                        <h3>Panduan Lengkap Proses Persetujuan KPR</h3>
+                        <p>Simak langkah-langkah detail untuk mendapatkan persetujuan kredit properti dari bank.</p>
+                        <div class="article-meta">
+                            <span class="article-date"><i class="fas fa-calendar"></i> 1 Mei 2024</span>
+                            <span class="article-author"><i class="fas fa-user"></i> Admin</span>
+                        </div>
+                        <a href="#" class="btn-link">Baca Selengkapnya →</a>
+                    </div>
+                </article>
+
+                <article class="article-card">
+                    <div class="article-image">
+                        <img src="https://via.placeholder.com/400x250?text=Lokasi+Strategis" alt="Lokasi Strategis">
+                        <span class="article-category">Market</span>
+                    </div>
+                    <div class="article-content">
+                        <h3>Lokasi Properti Paling Menguntungkan Tahun 2024</h3>
+                        <p>Analisis pasar dan rekomendasi area-area terbaik untuk investasi properti jangka panjang.</p>
+                        <div class="article-meta">
+                            <span class="article-date"><i class="fas fa-calendar"></i> 28 April 2024</span>
+                            <span class="article-author"><i class="fas fa-user"></i> Admin</span>
+                        </div>
+                        <a href="#" class="btn-link">Baca Selengkapnya →</a>
+                    </div>
+                </article>
+            </div>
+
+            <div class="view-all-articles">
+                <a href="#" class="btn-primary">Lihat Semua Artikel</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partner Sections -->
+    <section class="partners" id="developer">
+        <div class="container">
+            <h2>Developer Partner</h2>
+            <p class="section-subtitle">Kami bekerja sama dengan developer terpercaya</p>
+            <div class="partners-grid">
+                <div class="partner-card">
+                    <div class="partner-logo">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h3>PT Graha Indah</h3>
+                    <p>Developer berpengalaman lebih dari 20 tahun</p>
+                    <a href="#" class="btn-link">Lihat Proyek</a>
+                </div>
+                <div class="partner-card">
+                    <div class="partner-logo">
+                        <i class="fas fa-city"></i>
+                    </div>
+                    <h3>Propertindo Jaya</h3>
+                    <p>Spesialis hunian modern dan terjangkau</p>
+                    <a href="#" class="btn-link">Lihat Proyek</a>
+                </div>
+                <div class="partner-card">
+                    <div class="partner-logo">
+                        <i class="fas fa-warehouse"></i>
+                    </div>
+                    <h3>Bangun Berkembang</h3>
+                    <p>Ahli dalam properti komersial dan residensial</p>
+                    <a href="#" class="btn-link">Lihat Proyek</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="marketing" id="marketing">
+        <div class="container">
+            <h2>Tim Marketing Profesional</h2>
+            <p class="section-subtitle">Percayakan kebutuhan properti Anda kepada tim profesional kami</p>
+            <div class="marketing-content">
+                <div class="marketing-info">
+                    <h3>Layanan Marketing</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Konsultasi Properti Gratis</li>
+                        <li><i class="fas fa-check"></i> Proses Verifikasi Cepat</li>
+                        <li><i class="fas fa-check"></i> Negosiasi Harga</li>
+                        <li><i class="fas fa-check"></i> Pengurusan Dokumen</li>
+                        <li><i class="fas fa-check"></i> Layanan 24/7</li>
+                    </ul>
+                    <button class="btn-primary">Hubungi Tim Marketing</button>
+                </div>
+                <div class="marketing-image">
+                    <i class="fas fa-handshake"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="notaris" id="notaris">
+        <div class="container">
+            <h2>Layanan Notaris</h2>
+            <p class="section-subtitle">Pengurusan dokumen properti yang lengkap dan legal</p>
+            <div class="notaris-content">
+                <div class="notaris-image">
+                    <i class="fas fa-file-contract"></i>
+                </div>
+                <div class="notaris-info">
+                    <h3>Proses Legal & Dokumen</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Pengurusan Sertifikat Properti</li>
+                        <li><i class="fas fa-check"></i> Akta Jual Beli (AJB)</li>
+                        <li><i class="fas fa-check"></i> PPAT Berpengalaman</li>
+                        <li><i class="fas fa-check"></i> Konsultasi Legal Gratis</li>
+                        <li><i class="fas fa-check"></i> Pengurusan IMB & Pajak</li>
+                    </ul>
+                    <button class="btn-primary">Konsultasi Notaris</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section with WhatsApp -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Siap Memulai?</h2>
+            <p>Hubungi kami sekarang juga untuk konsultasi gratis tentang properti impian Anda</p>
+            <div class="cta-buttons">
+                <a href="https://wa.me/6281234567890?text=Halo%20Rumah.%20Saya%20ingin%20konsultasi%20tentang%20properti" 
+                   target="_blank" class="btn-whatsapp">
+                    <i class="fab fa-whatsapp"></i> Chat via WhatsApp
+                </a>
+                <button class="btn-primary">Hubungi Kami</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>Tentang RUMAH</h3>
+                    <p>Platform terpercaya untuk menemukan properti impian Anda di seluruh Indonesia.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Navigasi</h3>
+                    <ul>
+                        <li><a href="#home">Beranda</a></li>
+                        <li><a href="#properties">Cari Properti</a></li>
+                        <li><a href="#articles">Artikel</a></li>
+                        <li><a href="#kpr">Simulasi KPR</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Informasi</h3>
+                    <ul>
+                        <li><a href="#">Tentang Kami</a></li>
+                        <li><a href="#">Kebijakan Privasi</a></li>
+                        <li><a href="#">Syarat & Ketentuan</a></li>
+                        <li><a href="#">Hubungi Kami</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Hubungi Kami</h3>
+                    <p>
+                        <i class="fas fa-phone"></i> +62 812-3456-7890<br>
+                        <i class="fas fa-envelope"></i> info@rumah.id<br>
+                        <i class="fas fa-map-marker-alt"></i> Jakarta, Indonesia
+                    </p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 RUMAH. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
